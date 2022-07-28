@@ -16,15 +16,15 @@ function start() {
       case 'View All Roles':
         viewAllRoles()
         break;
-        // case 'Add Department':
-        //   addDepartment()
-        //   break;
+        case 'Add Department':
+          addDepartment()
+          break;
       case 'Add Role':
         addRole()
         break;
-        // case 'View All Employees':
-        //   viewAllEmployees()
-        //   break;
+        case 'View All Employees':
+          viewAllEmployees()
+          break;
         // case 'Add Employee':
         //   addEmployee()
         //   break;
@@ -49,11 +49,11 @@ function viewAllRoles() {
   }).then(() => start())
 };
 
-// function viewAllEmployees() {
-//   db.findEmployees().then(([data]) => {
-//     console.table(data)
-//   }).then(() => start())
-// };
+function viewAllEmployees() {
+  db.findEmployees().then(([data]) => {
+    console.table(data)
+  }).then(() => start())
+};
 
 function addRole() {
   db.findDepartments().then(([data]) => {
@@ -82,20 +82,32 @@ function addRole() {
         choices: departmentChoices
       }
     ]).then((res) => {
-      console.log(res)
-      db.addRole(res).then(({
-        res
-      }) => {
+      
+      db.addRole(res).then(({res}) => {
         console.log('roll added!')
         start();
       }).catch(err => {
-
         console.log("Error in create Role: ", err)
-
       })
     })
 
   })
 };
 
-  start()
+function addDepartment() {
+    inquirer.prompt([{
+        type: 'input',
+        message: 'Please provide the name of the department you are adding:',
+        name: 'name'
+      },
+    ]).then((res) => {
+      db.addDepartment(res).then(({res}) => {
+        console.log('Department added!')
+        start();
+      }).catch(err => {
+        console.log("Error in create Role: ", err)
+      })
+  })
+};
+
+start();
