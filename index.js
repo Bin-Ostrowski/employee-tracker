@@ -163,61 +163,47 @@ function addEmployee() {
 })
 };
 
-// function updateEmployeeRole() {
-//   db.findEmployeeID().then(([data]) => {
-//     const employeechoices = data.map(({
-//       id
-//     }) => ({
-//       name: id,
-//       value: id
-//     }));
+function updateEmployeeRole() {
+  db.findEmployeeID().then(([data]) => {
+    const employeechoices = data.map(({
+      id
+    }) => ({
+      name: id,
+      value: id
+    }));
 
-//     inquirer.prompt([
-//       {
-//         type: 'list',
-//         name: 'id',
-//         message: 'Choose the employee id you wish to update?',
-//         choices: employeechoices
-//       }
-//     ]).then((res) => {
-//       db.updateEmployee(res).then(({res}) => {
-//         console.log('Employee selected!')
-//         choseRole();
-//       }).catch(err => {
-//         console.log("Error in update Role: ", err)
-//       })
-//     })
-//   })
-// };
+    db.findRoles().then(([data]) => {
+      const roleChoices = data.map(({
+        id,
+        title
+      }) => ({
+        name: title,
+        value: id
+      }));
 
-// function choseRole() {
-//   db.findRoles().then(([data]) => {
-//         const roleChoices = data.map(({
-//           id,
-//           title
-//         }) => ({
-//           name: title,
-//           value: id
-//         }));
-
-//         inquirer.prompt([{
-//           type: 'list',
-//           name: 'role_title',
-//           message: 'What role should this employee change to?',
-//           choices: roleChoices
-//         }]).then((answer) => {
-//           db.updateEmployee(answer).then(({
-//             answer
-//           }) => {
-//             console.log('Employee updated!')
-//             start();
-//           }).catch(err => {
-//             console.log("Error in update employee role: ", err)
-//           })
-//         })
-
-//       })
-//     };
-
+    inquirer.prompt([
+      {
+        type: 'list',
+        name: 'id',
+        message: 'Choose the employee id you wish to update?',
+        choices: employeechoices
+      },
+      {
+        type: 'list',
+        name: 'role_id',
+        message: 'What role should this employee change to?',
+        choices: roleChoices
+      }
+    ]).then((res) => {
+      db.updateEmployee(res).then(({res}) => {
+        console.log('Employee selected!')
+        start();
+      }).catch(err => {
+        console.log("Error in update Role: ", err)
+      })
+    })
+  })
+})
+};
 
 start();

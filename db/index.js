@@ -32,8 +32,10 @@ class Data {
         return this.connection.promise().query('SELECT employee.id, employee.first_name, employee.last_name, role.title AS jobTitle, role.salary AS salary, department.name AS departmentName, employee.manager_id AS manager FROM employee INNER JOIN role ON employee.role_id = role.id LEFT JOIN department ON employee.department_id = department.id;')
     };
 
-    updateEmployee(employeeId, employeeRoleUpdate){
-        return this.connection.promise().query('UPDATE employee SET ? WHERE ?', employeeId, employeeRoleUpdate)
+    updateEmployee( updateEmployeeRole ){
+        const {id, role_id} = updateEmployeeRole;
+        console.log (id, role_id);
+        return this.connection.promise().query('UPDATE employee SET role_id = ' + role_id + ' WHERE id = ' + id + ';')
 
     }
 };
