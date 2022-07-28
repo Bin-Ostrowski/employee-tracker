@@ -28,9 +28,9 @@ function start() {
         case 'Add Employee':
           addEmployee()
           break;
-        // case 'Update Employee Role':
-        //   updateEmployeeRole()
-        //   break;
+        case 'Update Employee Role':
+          updateEmployeeRole()
+          break;
       default:
         process.exit()
     }
@@ -111,24 +111,23 @@ function addDepartment() {
 };
 
 function addEmployee() {
-db.findDepartments().then(([data]) => {
-  const departmentChoices = data.map(({
-    id,
-    name
-  }) => ({
-    name: name,
-    value: id
-  }));
+  db.findDepartments().then(([data]) => {
+    const departmentChoices = data.map(({
+      id,
+      name
+   }) => ({
+      name: name,
+      value: id
+    }));
 
-db.findRoles().then(([data]) => {
-  const roleChoices = data.map(({
-    id,
-    title,
-  }) => ({
-    name: title,
-    value: id
-  }));
-
+  db.findRoles().then(([data]) => {
+    const roleChoices = data.map(({
+      id,
+      title
+    }) => ({
+      name: title,
+      value: id
+    }));
 
   inquirer.prompt([{
       type: 'input',
@@ -151,14 +150,8 @@ db.findRoles().then(([data]) => {
       name: 'department_id',
       message: 'What department does this role belong to?',
       choices: departmentChoices
-    }
-    // {
-    //   type: 'input',
-    //   message: 'Please provide the salary of the role you are adding:',
-    //   name: 'salary'
-    // }
+    }  
   ]).then((res) => {
-    
     db.addEmployee(res).then(({res}) => {
       console.log('Employee added!')
       start();
@@ -169,5 +162,62 @@ db.findRoles().then(([data]) => {
 })
 })
 };
+
+// function updateEmployeeRole() {
+//   db.findEmployeeID().then(([data]) => {
+//     const employeechoices = data.map(({
+//       id
+//     }) => ({
+//       name: id,
+//       value: id
+//     }));
+
+//     inquirer.prompt([
+//       {
+//         type: 'list',
+//         name: 'id',
+//         message: 'Choose the employee id you wish to update?',
+//         choices: employeechoices
+//       }
+//     ]).then((res) => {
+//       db.updateEmployee(res).then(({res}) => {
+//         console.log('Employee selected!')
+//         choseRole();
+//       }).catch(err => {
+//         console.log("Error in update Role: ", err)
+//       })
+//     })
+//   })
+// };
+
+// function choseRole() {
+//   db.findRoles().then(([data]) => {
+//         const roleChoices = data.map(({
+//           id,
+//           title
+//         }) => ({
+//           name: title,
+//           value: id
+//         }));
+
+//         inquirer.prompt([{
+//           type: 'list',
+//           name: 'role_title',
+//           message: 'What role should this employee change to?',
+//           choices: roleChoices
+//         }]).then((answer) => {
+//           db.updateEmployee(answer).then(({
+//             answer
+//           }) => {
+//             console.log('Employee updated!')
+//             start();
+//           }).catch(err => {
+//             console.log("Error in update employee role: ", err)
+//           })
+//         })
+
+//       })
+//     };
+
 
 start();
