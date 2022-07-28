@@ -34,7 +34,6 @@ class Data {
 
     updateEmployee( updateEmployeeRole ){
         const {id, role_id} = updateEmployeeRole;
-        console.log (id, role_id);
         return this.connection.promise().query('UPDATE employee SET role_id = ' + role_id + ' WHERE id = ' + id + ';')
 
     }

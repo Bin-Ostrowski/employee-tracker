@@ -84,7 +84,7 @@ function addRole() {
     ]).then((res) => {
       
       db.addRole(res).then(({res}) => {
-        console.log('roll added!')
+        console.log('Role added!')
         start();
       }).catch(err => {
         console.log("Error in create Role: ", err)

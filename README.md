@@ -11,11 +11,11 @@
   
   ## Installation
   
-  First, download the repository employee-tracker from bin-ostrowski's GitHub. Next, open the project in VS, then open a terminal from the server.js file. Now, enter the command "npm start" to run the project.
+  First, download the repository employee-tracker from bin-ostrowski's GitHub. Next, open the project in VS, then open a terminal from the index.js file in root directoy. Now, enter the command "Mysql -u root -p", next enter password for MySQL, next choose a database by running the command "source db/db.sql", then create tables by running the command "source db/schema.sql", next seed the tables by running the command "source db/seeds.sql". Now the db is populated. Quit mysql on the command line then run the command "npm start" to run the app.
 
   ## Usage
   
-  [Click here for a demonstration](https://drive.google.com/file/d/1Q2mqMOwT91Vjx-ohvDb5V0Ic3yIOT2tb/view)
+  [Click here for a demonstration](https://drive.google.com/file/d/1EYSyrPxSBP3G0-coK1rV8azqLlOe1U_L/view)
   
   ## Questions
   GitHub: [Bin-Ostrowski](https://github.com/Bin-Ostrowski)
