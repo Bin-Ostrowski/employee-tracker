@@ -24,6 +24,10 @@ class Data {
     findEmployees(){
         return this.connection.promise().query('SELECT employee.id, employee.first_name, employee.last_name, role.title AS jobTitle, role.salary AS salary, department.name AS departmentName, employee.manager_id AS manager FROM employee INNER JOIN role ON employee.role_id = role.id LEFT JOIN department ON employee.department_id = department.id;')
     };
+
+    addEmployee(employeeData){
+        return this.connection.promise().query('INSERT INTO employee SET ?', employeeData)
+    };
 };
 
 module.exports = new Data(connection);
